@@ -6,20 +6,23 @@ namespace PizzaBox.Domain.Models
     {
         public int ToppingLimit{ get; }
 
-        public int Id{ get; }
-        public string Name{ get; private set; }
+        public string Name{ get; set; }
 
-        public double Price{ get; private set; }
+        public decimal Price{ get; private set; }
 
-        public List<Topping> ToppingList{ get; private set; }
+        public List<Topping> ToppingList{ get; set; }
 
-        public Size size;
-        public Crust crust;
+        public Size Size{ get; set; }
+        public Crust Crust{ get; set; }
 
 
-        public Pizza(int pizzaId, Size pizzaSize, Crust pizzaCrust, string pizzaName="Pizza", List<Topping> toppingsToAdd=null, int limit=5)
+        public Pizza()
         {
-            Id = pizzaId;
+            ToppingList = new List<Topping>();
+        }
+
+        /*public Pizza(Size pizzaSize, Crust pizzaCrust, string pizzaName="Pizza", List<Topping> toppingsToAdd=null, int limit=5)
+        {
             Name = pizzaName;
 
             size = pizzaSize;
@@ -29,12 +32,12 @@ namespace PizzaBox.Domain.Models
             ToppingLimit = limit;
 
             CalculatePrice();
-        }
+        }*/
 
         public void CalculatePrice()
         {
-            Price = 0.0;
-            Price += size.Price + crust.Price;
+            Price = 0;
+            Price += Size.Price + Crust.Price;
             foreach(Topping topping in ToppingList)
             {
                 Price += topping.Price;

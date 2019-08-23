@@ -4,23 +4,22 @@ namespace PizzaBox.Domain.Models
 {
     public class Order
     {
-        public List<Pizza> shoppingCart{ get; private set; }
+        public List<Pizza> ShoppingCart{ get; private set; }
 
-        public int Id{ get; }
-        public double Price{ get; private set; }
-        public Location StoreLocation{ get; private set; }
+        public decimal Price{ get; private set; }
 
-        private double maximumPrice;
+        private decimal maximumPrice;
         private double maximumPizzaCount;
         private User user;
 
-        public Order(int orderId, User orderMaker, Location orderLocation, double orderMaximumPrice, int orderMaximumPizzaCount)
+
+        public Order(User orderMaker, decimal orderMaximumPrice = 5000, int orderMaximumPizzaCount = 5)
         {
-            Id = orderId;
             user = orderMaker;
-            StoreLocation = orderLocation;
             maximumPrice = orderMaximumPrice;
             maximumPizzaCount = orderMaximumPizzaCount;
+
+            ShoppingCart = new List<Pizza>();
         }
 
         //return true if successfully added 'pizzaToAdd' to 'shoppingCart'
@@ -30,7 +29,7 @@ namespace PizzaBox.Domain.Models
             pizzaToAdd.CalculatePrice();
             if((this.Price + pizzaToAdd.Price) <= maximumPrice)
             {
-                shoppingCart.Add(pizzaToAdd);
+                ShoppingCart.Add(pizzaToAdd);
                 return true;
             }
             else return false;
@@ -40,7 +39,16 @@ namespace PizzaBox.Domain.Models
         //otherwise, return false
         public bool RemoveFromOrder(Pizza pizzaToRemove)
         {
-            return shoppingCart.Remove(pizzaToRemove);
+            return ShoppingCart.Remove(pizzaToRemove);
+        }
+
+        public void CalculatePrice()
+        {
+            Price = 0;
+            foreach(Pizza p in ShoppingCart)
+            {
+                Price += p.Price;
+            }
         }
     }
 }

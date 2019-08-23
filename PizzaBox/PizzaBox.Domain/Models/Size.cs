@@ -1,16 +1,9 @@
+using PizzaBox.Domain.Abstracts;
+
 namespace PizzaBox.Domain.Models
 {
-    public class Size : IOrderable
+    public class Size : AOrderable
     {
-        public int Id{get;}
-        public string Name{get;}
-        public double Price{get;}
-
-        public Size(int sizeId, string sizeName, double sizePrice)
-        {
-            Id = sizeId;
-            Name = sizeName;
-            Price = sizePrice;
-        }
+        public Size(string sizeName, decimal sizePrice) : base(sizeName, sizePrice){}
     }
 }

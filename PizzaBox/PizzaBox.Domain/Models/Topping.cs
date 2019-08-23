@@ -1,16 +1,9 @@
+using PizzaBox.Domain.Abstracts;
+
 namespace PizzaBox.Domain.Models
 {
-    public class Topping : IOrderable
+    public class Topping : AOrderable
     {
-        public int Id{ get; }
-        public string Name{ get; }
-        public double Price{ get; }
-
-        public Topping(int toppingId, double toppingPrice, string toppingName)
-        {
-            Id = toppingId;
-            Price = toppingPrice;
-            Name = toppingName;
-        }
+        public Topping(string toppingName, decimal toppingPrice) : base(toppingName, toppingPrice){}
     }
 }
